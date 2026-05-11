@@ -19,7 +19,7 @@ All notable changes to `qresid` will be documented in this file.
 
 ### Notes
 
-- Submitted to SSC; pending review/acceptance.
+- Accepted and distributed through SSC.
 - Supersedes the earlier preliminary 0.1.0 prerelease line.
 
 ## [0.1.0 prerelease] - 2026-05-10

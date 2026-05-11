@@ -2,7 +2,7 @@
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/psotob91/qresid/releases/tag/v1.0.0)
 [![Stata](https://img.shields.io/badge/Stata-15.0%2B-1f77b4.svg)](https://www.stata.com/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Install](https://img.shields.io/badge/install-net%20install-lightgrey.svg)](#installation)
+[![Install](https://img.shields.io/badge/install-SSC-lightgrey.svg)](#installation)
 
 <img align="right" src="docs/assets/qresid-logo.png" width="145" alt="qresid logo">
 
@@ -23,12 +23,10 @@ structures, frequency weights, and fixed-dispersion CDF replay.
 
 ## Installation
 
-`qresid` version `v1.0.0` has been submitted to SSC and is pending
-review/acceptance. Until SSC acceptance, users can install the package from
-GitHub.
+`qresid` is available from SSC. The recommended installation command is:
 
 ```stata
-net install qresid, from("https://raw.githubusercontent.com/psotob91/qresid/main/") replace
+ssc install qresid
 ```
 
 After installation:
@@ -38,14 +36,20 @@ which qresid
 help qresid
 ```
 
-Once accepted by SSC, the recommended installation command will be:
+The GitHub repository is the public source, documentation, issue-tracking, and
+development home for the package. Users who want the current GitHub source can
+install with:
 
 ```stata
-ssc install qresid
+net install qresid, from("https://raw.githubusercontent.com/psotob91/qresid/main/") replace
 ```
 
-While SSC review is pending, GitHub is the public source and development home
-for the package.
+Then check the installation in the same way:
+
+```stata
+which qresid
+help qresid
+```
 
 ## Quick Start
 
