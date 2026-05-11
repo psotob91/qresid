@@ -1,0 +1,104 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/binary_season
+> al_functional_form_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:26
+
+. glm y t, family(binomial) link(logit)
+
+Iteration 0:  Log likelihood = -890.53128  
+Iteration 1:  Log likelihood = -890.16125  
+Iteration 2:  Log likelihood = -890.16123  
+
+Generalized linear models                         Number of obs   =      1,600
+Optimization     : ML                             Residual df     =      1,598
+                                                  Scale parameter =          1
+Deviance         =  1780.322459                   (1/df) Deviance =   1.114094
+Pearson          =  1509.375449                   (1/df) Pearson  =   .9445403
+
+Variance function: V(u) = u*(1-u)                 [Bernoulli]
+Link function    : g(u) = ln(u/(1-u))             [Logit]
+
+                                                  AIC             =   1.115202
+Log likelihood   = -890.1612295                   BIC             =  -10009.34
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           t |   -2.71283   .2154714   -12.59   0.000    -3.135146   -2.290514
+       _cons |   .4037863   .1066819     3.78   0.000     .1946936     .612879
+------------------------------------------------------------------------------
+
+. predict double pearson_seasonal, pearson
+
+. predict double deviance_seasonal, deviance
+
+. qresid rq_seasonal_linear, uvar(v)
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |      1,600          .  -890.1612       2   1784.322   1795.078
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. glm y s1 c1 s2 c2, family(binomial) link(logit)
+
+Iteration 0:  Log likelihood =  -791.8432  
+Iteration 1:  Log likelihood = -773.99116  
+Iteration 2:  Log likelihood = -773.72686  
+Iteration 3:  Log likelihood = -773.72683  
+
+Generalized linear models                         Number of obs   =      1,600
+Optimization     : ML                             Residual df     =      1,595
+                                                  Scale parameter =          1
+Deviance         =  1547.453659                   (1/df) Deviance =   .9701904
+Pearson          =  1493.053101                   (1/df) Pearson  =   .9360834
+
+Variance function: V(u) = u*(1-u)                 [Bernoulli]
+Link function    : g(u) = ln(u/(1-u))             [Logit]
+
+                                                  AIC             =   .9734085
+Log likelihood   = -773.7268294                   BIC             =  -10220.07
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+          s1 |   1.361536   .1076777    12.64   0.000     1.150492    1.572581
+          c1 |  -.9419632    .115353    -8.17   0.000    -1.168051   -.7158755
+          s2 |   1.309291   .1088411    12.03   0.000     1.095966    1.522615
+          c2 |  -.5838369   .0931854    -6.27   0.000    -.7664769    -.401197
+       _cons |  -1.272055   .0829361   -15.34   0.000    -1.434607   -1.109503
+------------------------------------------------------------------------------
+
+. qresid rq_seasonal_fourier, uvar(v)
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |      1,600          .  -773.7268       5   1557.454   1584.342
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. summarize pearson_seasonal deviance_seasonal rq_seasonal_linear rq_seasonal_f
+> ourier
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+pearson_se~l |      1,600   -.0149781    .9714552  -1.223717   3.113849
+deviance_s~l |      1,600   -.1143246    1.048961  -1.352985   2.177097
+rq_season~ar |      1,600    -.017967    .9763721  -2.821043   2.717918
+rq_season~er |      1,600   -.0153421    .9765223  -2.935212   2.497118
+
+. _manual_snippet_end

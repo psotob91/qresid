@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/dispersion_ou
+> tput.txt
+  log type:  text
+ opened on:  11 May 2026, 05:07:10
+
+. glm y x, family(gamma) link(log)
+
+Iteration 0:  Log likelihood = -209.65161  
+Iteration 1:  Log likelihood = -208.07005  
+Iteration 2:  Log likelihood = -208.06685  
+Iteration 3:  Log likelihood = -208.06685  
+
+Generalized linear models                         Number of obs   =        160
+Optimization     : ML                             Residual df     =        158
+                                                  Scale parameter =    .514304
+Deviance         =  79.97392707                   (1/df) Deviance =   .5061641
+Pearson          =  81.26002412                   (1/df) Pearson  =    .514304
+
+Variance function: V(u) = u^2                     [Gamma]
+Link function    : g(u) = ln(u)                   [Log]
+
+                                                  AIC             =   2.625836
+Log likelihood   = -208.0668485                   BIC             =  -721.9035
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .3965489   .0632066     6.27   0.000     .2726663    .5204315
+       _cons |   .3112132   .0567229     5.49   0.000     .2000383    .4223881
+------------------------------------------------------------------------------
+
+. qresid rq_gamma_default
+
+. qresid rq_gamma_phi, dispersion(.35)
+
+. summarize rq_gamma_default rq_gamma_phi
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+rq_gamma_d~t |        160    .0159822    .9589404  -2.340005   2.564197
+rq_gamma_phi |        160   -.0707152    1.157336  -2.911044   3.005543
+
+. _manual_snippet_end

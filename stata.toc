@@ -1,0 +1,10 @@
+v 1.0.0
+d Materials by Percy Soto-Becerra, MD, MSc, PhD(c)
+d Universidad Privada del Norte, Lima, Peru
+d percy.soto@upn.edu.pe
+d percys1991@gmail.com
+d https://github.com/psotob91/qresid
+
+d 'qresid': Randomized quantile residuals for regression diagnostics in Stata. Requires Stata 15.0 or newer.
+
+p qresid

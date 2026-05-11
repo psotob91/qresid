@@ -1,0 +1,96 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/counts_underd
+> ispersed_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:07:02
+.     poisson y x
+
+Iteration 0:  Log likelihood = -759.06286  
+Iteration 1:  Log likelihood = -759.06286  
+
+Poisson regression                                      Number of obs =    420
+                                                        LR chi2(1)    =  39.74
+                                                        Prob > chi2   = 0.0000
+Log likelihood = -759.06286                             Pseudo R2     = 0.0255
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .2967693   .0472884     6.28   0.000     .2040858    .3894529
+       _cons |   1.144335    .027713    41.29   0.000     1.090018    1.198651
+------------------------------------------------------------------------------
+.     qresid rq_under_pois, uvar(v)
+.     capture noisily nbreg y x
+
+Fitting Poisson model:
+
+Iteration 0:  Log likelihood = -759.06286  
+Iteration 1:  Log likelihood = -759.06286  
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -966.03326  
+Iteration 1:  Log likelihood = -778.93344  
+Iteration 2:  Log likelihood = -778.93344  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -759.21313  
+Iteration 1:  Log likelihood = -759.06287  
+Iteration 2:  Log likelihood = -759.06286  
+
+Negative binomial regression                            Number of obs =    420
+                                                        LR chi2(1)    =  39.74
+Dispersion: mean                                        Prob > chi2   = 0.0000
+Log likelihood = -759.06286                             Pseudo R2     = 0.0255
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .2967693   .0472884     6.28   0.000     .2040858    .3894529
+       _cons |   1.144335    .027713    41.29   0.000     1.090018    1.198651
+-------------+----------------------------------------------------------------
+    /lnalpha |  -60.31108          .                             .           .
+-------------+----------------------------------------------------------------
+       alpha |   6.42e-27          .                             .           .
+------------------------------------------------------------------------------
+LR test of alpha=0: chibar2(01) = 0.00                 Prob >= chibar2 = 1.000
+.     if !_rc {
+.         capture noisily qresid rq_under_nb, uvar(v)
+invalid CDF endpoints
+.         if _rc {
+.             display as text "Negative-binomial residual skipped: fitted endpo
+> ints were not stable for this underdispersed example."
+Negative-binomial residual skipped: fitted endpoints were not stable for this u
+> nderdispersed example.
+.         }
+.     }
+.     capture noisily gpoisson y x, nolog iterate(120)
+
+Generalized Poisson regression                    Number of obs   =        420
+                                                  LR chi2(1)      =      55.32
+Dispersion     =  -.222972                        Prob > chi2     =     0.0000
+Log likelihood = -743.1637                        Pseudo R2       =     0.0359
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .2939575   .0385477     7.63   0.000     .2184053    .3695097
+       _cons |   1.144596   .0226529    50.53   0.000     1.100197    1.188995
+-------------+----------------------------------------------------------------
+ /atanhdelta |  -.2267814   .0415081                     -.3081359    -.145427
+-------------+----------------------------------------------------------------
+       delta |   -.222972   .0394445                     -.2987403   -.1444104
+------------------------------------------------------------------------------
+Likelihood-ratio test of delta=0:  chi2(1) =   31.80       Prob>=chi2 = 0.0000
+.     if !_rc {
+.         qresid rq_under_gp, uvar(v)
+.         summarize rq_under_pois rq_under_gp
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+rq_under_p~s |        420    .0292073    .8096433  -2.205907   2.458329
+ rq_under_gp |        420   -.0008245    .9815545   -2.54688   3.251968
+.     }
+.     _manual_snippet_end

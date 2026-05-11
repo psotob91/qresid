@@ -1,0 +1,92 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/continuous_po
+> sitive_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:05:55
+
+. regress y x
+
+      Source |       SS           df       MS      Number of obs   =       260
+-------------+----------------------------------   F(1, 258)       =     98.42
+       Model |  212.203573         1  212.203573   Prob > F        =    0.0000
+    Residual |   556.26693       258  2.15607337   R-squared       =    0.2761
+-------------+----------------------------------   Adj R-squared   =    0.2733
+       Total |  768.470503       259  2.96706758   Root MSE        =    1.4684
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .9246639    .093205     9.92   0.000     .7411244    1.108203
+       _cons |   1.709638    .091384    18.71   0.000     1.529684    1.889591
+------------------------------------------------------------------------------
+
+. qresid rq_pos_gauss
+
+. glm y x, family(gamma) link(log)
+
+Iteration 0:  Log likelihood = -376.80521  
+Iteration 1:  Log likelihood = -372.96836  
+Iteration 2:  Log likelihood = -372.96724  
+Iteration 3:  Log likelihood = -372.96724  
+
+Generalized linear models                         Number of obs   =        260
+Optimization     : ML                             Residual df     =        258
+                                                  Scale parameter =    .453777
+Deviance         =  143.4733065                   (1/df) Deviance =   .5560981
+Pearson          =  117.0744706                   (1/df) Pearson  =    .453777
+
+Variance function: V(u) = u^2                     [Gamma]
+Link function    : g(u) = ln(u)                   [Log]
+
+                                                  AIC             =   2.884363
+Log likelihood   = -372.9672442                   BIC             =  -1291.183
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .5775507   .0440335    13.12   0.000     .4912467    .6638548
+       _cons |   .3871148   .0419328     9.23   0.000     .3049281    .4693015
+------------------------------------------------------------------------------
+
+. qresid rq_pos_gamma
+
+. glm y x, family(igaussian) link(log)
+
+Iteration 0:  Log likelihood = -449.31222  
+Iteration 1:  Log likelihood = -435.27813  
+Iteration 2:  Log likelihood = -435.24377  
+Iteration 3:  Log likelihood = -435.24374  
+
+Generalized linear models                         Number of obs   =        260
+Optimization     : ML                             Residual df     =        258
+                                                  Scale parameter =   .3415315
+Deviance         =  268.9476751                   (1/df) Deviance =   1.042433
+Pearson          =  88.11513216                   (1/df) Pearson  =   .3415315
+
+Variance function: V(u) = u^3                     [Inverse Gaussian]
+Link function    : g(u) = ln(u)                   [Log]
+
+                                                  AIC             =   3.363413
+Log likelihood   = -435.2437427                   BIC             =  -1165.708
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |    .605169   .0439272    13.78   0.000     .5190732    .6912648
+       _cons |   .3923231   .0469545     8.36   0.000      .300294    .4843522
+------------------------------------------------------------------------------
+
+. qresid rq_pos_ig
+
+. summarize rq_pos_gauss rq_pos_gamma rq_pos_ig
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+rq_pos_gauss |        260   -9.95e-17    .9980676  -2.615776   5.531482
+rq_pos_gamma |        260    .0259245    .9597124  -3.456606   2.711812
+   rq_pos_ig |        260    .2300633    .9456452  -7.034484   1.730289
+
+. _manual_snippet_end

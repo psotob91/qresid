@@ -1,0 +1,121 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/binary_links_
+> output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:03
+
+. tabulate y
+
+          y |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |        181       20.11       20.11
+          1 |         96       10.67       30.78
+          2 |         55        6.11       36.89
+          3 |         63        7.00       43.89
+          4 |         60        6.67       50.56
+          5 |        445       49.44      100.00
+------------+-----------------------------------
+      Total |        900      100.00
+
+. glm y x, family(binomial trials) link(loglog)
+
+Iteration 0:  Log likelihood = -712.45023  
+Iteration 1:  Log likelihood =  -679.8985  
+Iteration 2:  Log likelihood = -679.64413  
+Iteration 3:  Log likelihood = -679.64404  
+Iteration 4:  Log likelihood = -679.64404  
+
+Generalized linear models                         Number of obs   =        900
+Optimization     : ML                             Residual df     =        898
+                                                  Scale parameter =          1
+Deviance         =  830.0612378                   (1/df) Deviance =   .9243444
+Pearson          =  9177.006772                   (1/df) Pearson  =   10.21938
+
+Variance function: V(u) = u*(1-u/trials)          [Binomial]
+Link function    : g(u) = -ln(-ln(u/trials))      [Log-log]
+
+                                                  AIC             =   1.514765
+Log likelihood   = -679.6440375                   BIC             =  -5278.489
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   2.448159   .0580452    42.18   0.000     2.334392    2.561925
+       _cons |  -2.180849   .0606343   -35.97   0.000     -2.29969   -2.062008
+------------------------------------------------------------------------------
+
+. predict double pearson_link_loglog, pearson
+
+. predict double deviance_link_loglog, deviance
+
+. qresid rq_bin_loglog, uvar(v)
+
+. predict double phat_loglog, mu
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        900          .   -679.644       2   1363.288   1372.893
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. glm y x, family(binomial trials) link(cloglog)
+
+Iteration 0:  Log likelihood = -812.99228  
+Iteration 1:  Log likelihood = -558.33325  
+Iteration 2:  Log likelihood = -551.09769  
+Iteration 3:  Log likelihood = -551.08049  
+Iteration 4:  Log likelihood = -551.08049  
+
+Generalized linear models                         Number of obs   =        900
+Optimization     : ML                             Residual df     =        898
+                                                  Scale parameter =          1
+Deviance         =  572.9341507                   (1/df) Deviance =   .6380113
+Pearson          =  105810.4086                   (1/df) Pearson  =    117.829
+
+Variance function: V(u) = u*(1-u/trials)          [Binomial]
+Link function    : g(u) = ln(-ln(1-u/trials))     [Complementary log–log]
+
+                                                  AIC             =   1.229068
+Log likelihood   = -551.0804939                   BIC             =  -5535.616
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   2.880627   .0859723    33.51   0.000     2.712124    3.049129
+       _cons |  -3.854112   .1198406   -32.16   0.000    -4.088995   -3.619229
+------------------------------------------------------------------------------
+
+. qresid rq_bin_cloglog, uvar(v)
+
+. predict double phat_cloglog, mu
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        900          .  -551.0805       2   1106.161   1115.766
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. summarize pearson_link_loglog deviance_link_loglog rq_bin_loglog rq_bin_clogl
+> og
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+pearson_li~g |        900    .3196158    3.178954  -2.842462   74.07542
+deviance_l~g |        900    .1451814      .94985  -3.100992   5.348489
+rq_bin_log~g |        900    .0261212     1.00496  -3.130395   5.160796
+rq_bin_clo~g |        900   -.0314849    .9730559  -4.325551   2.808042
+
+. _manual_snippet_end

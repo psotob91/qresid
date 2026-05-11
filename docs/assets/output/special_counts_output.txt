@@ -1,0 +1,126 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/special_count
+> s_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:44
+
+. zip y_zip x, inflate(z)
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -619.57053  
+Iteration 1:  Log likelihood =  -559.4794  
+Iteration 2:  Log likelihood = -555.63693  
+Iteration 3:  Log likelihood = -555.52703  
+Iteration 4:  Log likelihood = -555.52685  
+Iteration 5:  Log likelihood = -555.52685  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -555.52685  
+Iteration 1:  Log likelihood = -535.88298  
+Iteration 2:  Log likelihood = -535.65189  
+Iteration 3:  Log likelihood = -535.65113  
+Iteration 4:  Log likelihood = -535.65113  
+
+Zero-inflated Poisson regression                        Number of obs =    420
+Inflation model: logit                                  Nonzero obs   =    219
+                                                        Zero obs      =    201
+                                                        LR chi2(1)    =  39.75
+Log likelihood = -535.6511                              Prob > chi2   = 0.0000
+
+------------------------------------------------------------------------------
+       y_zip | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+y_zip        |
+           x |   .4011658   .0638587     6.28   0.000     .2760051    .5263265
+       _cons |   .2341641   .0673195     3.48   0.001     .1022203    .3661078
+-------------+----------------------------------------------------------------
+inflate      |
+           z |   .8678427   .2181245     3.98   0.000     .4403266    1.295359
+       _cons |  -1.008397   .2214719    -4.55   0.000    -1.442474   -.5743206
+------------------------------------------------------------------------------
+
+. qresid rq_zip, uvar(v)
+
+. summarize rq_zip
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+      rq_zip |        420    .0018486    .9761123  -2.809509   2.747536
+
+. generate int y_trunc = rpoisson(mu)
+
+. replace y_trunc = y_trunc + 1 if y_trunc == 0
+(116 real changes made)
+
+. tpoisson y_trunc x, ll(0)
+
+Iteration 0:  Log likelihood = -504.63242  
+Iteration 1:  Log likelihood = -468.13726  
+Iteration 2:  Log likelihood = -467.95537  
+Iteration 3:  Log likelihood = -467.95526  
+Iteration 4:  Log likelihood = -467.95526  
+
+Truncated Poisson regression                    Number of obs     =        420
+Limits:  lower =          0                     LR chi2(1)        =     120.65
+         upper =       +inf                     Prob > chi2       =     0.0000
+Log likelihood = -467.95526                     Pseudo R2         =     0.1142
+
+------------------------------------------------------------------------------
+     y_trunc | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .4914867   .0598492     8.21   0.000     .3741844    .6087891
+       _cons |   .0365197   .0620974     0.59   0.556     -.085189    .1582284
+------------------------------------------------------------------------------
+
+. qresid rq_tpois, uvar(v)
+
+. summarize rq_tpois
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    rq_tpois |        420   -.0405413    1.074144  -2.743002   3.662996
+
+. generate int y_cens = rpoisson(mu)
+
+. replace y_cens = 1 if y_cens <= 1
+(105 real changes made)
+
+. replace y_cens = 8 if y_cens >= 8
+(0 real changes made)
+
+. cpoisson y_cens x, ll(1) ul(8)
+
+Initial:      Log likelihood = -465.47221
+Rescale:      Log likelihood = -465.47221
+Iteration 0:  Log likelihood = -465.47221  
+Iteration 1:  Log likelihood = -454.24644  
+Iteration 2:  Log likelihood = -454.22096  
+Iteration 3:  Log likelihood = -454.22096  
+
+Censored Poisson regression                         Number of obs     =    420
+                                                           Uncensored =    165
+Limits: Lower = 1                                       Left-censored =    255
+        Upper = 8                                      Right-censored =      0
+
+                                                    LR chi2(1)        =  54.56
+Log likelihood = -454.22096                         Prob > chi2       = 0.0000
+
+------------------------------------------------------------------------------
+      y_cens | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .3564464   .0488274     7.30   0.000     .2607464    .4521463
+       _cons |   .2908923   .0469491     6.20   0.000     .1988738    .3829108
+------------------------------------------------------------------------------
+
+. qresid rq_cpois, uvar(v)
+
+. summarize rq_cpois
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+    rq_cpois |        420   -.0143771    1.021186  -2.720445   2.921785
+
+. _manual_snippet_end

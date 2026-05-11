@@ -1,0 +1,33 @@
+name: Run Stata tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    # Requires a self-hosted runner with Stata already installed and licensed.
+    # If Stata is not on PATH, set STATA_EXE on the runner machine.
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Stata test suite
+        shell: cmd
+        run: |
+          if not defined STATA_EXE if exist "C:\Program Files\StataNow19\StataSE-64.exe" set "STATA_EXE=C:\Program Files\StataNow19\StataSE-64.exe"
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools\ci\run_stata_tests.ps1
+
+      - name: Upload logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: stata-logs
+          path: |
+            *.log
+            tests/logs/**
+            examples/logs/**

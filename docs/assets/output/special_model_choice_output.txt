@@ -1,0 +1,264 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/special_model
+> _choice_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:49
+
+. _manual_count_summary y
+Observed mean:    0.9185
+Observed variance:    4.8577
+Variance / mean:    5.2890
+Percent zero:      0.15
+
+. poisson y x
+
+Iteration 0:  Log likelihood = -1039.8973  
+Iteration 1:  Log likelihood = -1039.8973  
+
+Poisson regression                                      Number of obs =    650
+                                                        LR chi2(1)    = 286.20
+                                                        Prob > chi2   = 0.0000
+Log likelihood = -1039.8973                             Pseudo R2     = 0.1210
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .6696731   .0389857    17.18   0.000     .5932626    .7460836
+       _cons |  -.3140315   .0491882    -6.38   0.000    -.4104386   -.2176244
+------------------------------------------------------------------------------
+
+. qresid rq_mc_pois, uvar(v)
+
+. predict double fit_mc_pois, n
+
+. estat gof
+
+         Deviance goodness-of-fit =  1538.374
+         Prob > chi2(648)         =    0.0000
+
+         Pearson goodness-of-fit  =  2216.164
+         Prob > chi2(648)         =    0.0000
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        650  -1182.998  -1039.897       2   2083.795   2092.749
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. nbreg y x
+
+Fitting Poisson model:
+
+Iteration 0:  Log likelihood = -1039.8973  
+Iteration 1:  Log likelihood = -1039.8973  
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -863.22789  
+Iteration 1:  Log likelihood = -845.93859  
+Iteration 2:  Log likelihood = -783.05213  
+Iteration 3:  Log likelihood =  -779.1991  
+Iteration 4:  Log likelihood =  -779.1981  
+Iteration 5:  Log likelihood =  -779.1981  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -759.06243  
+Iteration 1:  Log likelihood =  -754.7239  
+Iteration 2:  Log likelihood = -754.01589  
+Iteration 3:  Log likelihood = -754.01457  
+Iteration 4:  Log likelihood = -754.01457  
+
+Negative binomial regression                            Number of obs =    650
+                                                        LR chi2(1)    =  50.37
+Dispersion: mean                                        Prob > chi2   = 0.0000
+Log likelihood = -754.01457                             Pseudo R2     = 0.0323
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .5808382   .0841473     6.90   0.000     .4159125    .7457638
+       _cons |   -.277607   .0872878    -3.18   0.001    -.4486878   -.1065261
+-------------+----------------------------------------------------------------
+    /lnalpha |   1.224773   .1172388                      .9949897    1.454557
+-------------+----------------------------------------------------------------
+       alpha |   3.403395   .3990098                      2.704696    4.282586
+------------------------------------------------------------------------------
+LR test of alpha=0: chibar2(01) = 571.77               Prob >= chibar2 = 0.000
+
+. qresid rq_mc_nb, uvar(v)
+
+. predict double fit_mc_nb, n
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        650  -779.1981  -754.0146       3   1514.029    1527.46
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. capture noisily gpoisson y x, nolog iterate(120)
+
+Generalized Poisson regression                    Number of obs   =        650
+                                                  LR chi2(1)      =      30.10
+Dispersion     =  .5665687                        Prob > chi2     =     0.0000
+Log likelihood = -767.00423                       Pseudo R2       =     0.0192
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .3949654   .0719458     5.49   0.000     .2539543    .5359765
+       _cons |   -.162757   .0987864    -1.65   0.099    -.3563747    .0308607
+-------------+----------------------------------------------------------------
+ /atanhdelta |   .6424549   .0504721                      .5435314    .7413783
+-------------+----------------------------------------------------------------
+       delta |   .5665687   .0342705                      .4956565    .6299772
+------------------------------------------------------------------------------
+Likelihood-ratio test of delta=0:  chi2(1) =  545.79       Prob>=chi2 = 0.0000
+
+. if !_rc {
+.     qresid rq_mc_gp, uvar(v)
+.     predict double fit_mc_gp, n
+.     estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        650  -782.0546  -767.0042       3   1540.008   1553.439
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+. }
+
+. zip y x, inflate(z)
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -1067.8477  
+Iteration 1:  Log likelihood = -976.56346  
+Iteration 2:  Log likelihood = -960.90089  
+Iteration 3:  Log likelihood = -844.59744  
+Iteration 4:  Log likelihood = -840.46059  
+Iteration 5:  Log likelihood = -840.44302  
+Iteration 6:  Log likelihood = -840.44302  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -840.44302  
+Iteration 1:  Log likelihood =  -767.2864  
+Iteration 2:  Log likelihood =  -755.6231  
+Iteration 3:  Log likelihood = -755.61959  
+Iteration 4:  Log likelihood = -755.61959  
+
+Zero-inflated Poisson regression                        Number of obs =    650
+Inflation model: logit                                  Nonzero obs   =    199
+                                                        Zero obs      =    451
+                                                        LR chi2(1)    = 169.65
+Log likelihood = -755.6196                              Prob > chi2   = 0.0000
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+y            |
+           x |   .5726403   .0415428    13.78   0.000     .4912179    .6540628
+       _cons |   .6859412   .0591238    11.60   0.000     .5700607    .8018217
+-------------+----------------------------------------------------------------
+inflate      |
+           z |   .7537025   .1152869     6.54   0.000     .5277443    .9796607
+       _cons |   .5746818   .1060204     5.42   0.000     .3668857    .7824779
+------------------------------------------------------------------------------
+
+. qresid rq_mc_zip, uvar(v)
+
+. predict double fit_mc_zip, n
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        650   -840.443  -755.6196       4   1519.239   1537.147
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. zinb y x, inflate(z)
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -830.72703  (not concave)
+Iteration 1:  Log likelihood = -757.02612  
+Iteration 2:  Log likelihood = -752.77064  
+Iteration 3:  Log likelihood = -752.37577  
+Iteration 4:  Log likelihood = -752.32497  
+Iteration 5:  Log likelihood = -752.32435  
+Iteration 6:  Log likelihood = -752.32435  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -752.32435  
+Iteration 1:  Log likelihood = -726.52718  
+Iteration 2:  Log likelihood = -720.49256  
+Iteration 3:  Log likelihood = -720.18109  
+Iteration 4:  Log likelihood = -720.16928  
+Iteration 5:  Log likelihood = -720.16922  
+
+Zero-inflated negative binomial regression              Number of obs =    650
+Inflation model: logit                                  Nonzero obs   =    199
+                                                        Zero obs      =    451
+                                                        LR chi2(1)    =  64.31
+Log likelihood = -720.1692                              Prob > chi2   = 0.0000
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+y            |
+           x |   .5793039    .071035     8.16   0.000     .4400777      .71853
+       _cons |   .4260682    .125572     3.39   0.001     .1799516    .6721849
+-------------+----------------------------------------------------------------
+inflate      |
+           z |   1.001755   .2048216     4.89   0.000     .6003124    1.403198
+       _cons |   .0324301   .2627274     0.12   0.902    -.4825061    .5473662
+-------------+----------------------------------------------------------------
+    /lnalpha |  -.2683346   .3455858    -0.78   0.437    -.9456703    .4090011
+-------------+----------------------------------------------------------------
+       alpha |   .7646519   .2642528                      .3884191    1.505313
+------------------------------------------------------------------------------
+
+. qresid rq_mc_zinb, uvar(v)
+
+. predict double fit_mc_zinb, n
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        650  -752.3243  -720.1692       5   1450.338   1472.723
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. summarize rq_mc_pois rq_mc_nb rq_mc_zip rq_mc_zinb
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+  rq_mc_pois |        650   -.1414192    1.451603  -3.132413   6.579806
+    rq_mc_nb |        650    .0010112    1.001601  -2.761905   2.769905
+   rq_mc_zip |        650    .0061764    1.062067  -2.779839   4.846998
+  rq_mc_zinb |        650   -.0033563    .9986891  -2.810388   3.081517
+
+. _manual_snippet_end

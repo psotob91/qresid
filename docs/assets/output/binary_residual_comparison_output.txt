@@ -1,0 +1,50 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/binary_residu
+> al_comparison_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:11
+
+. glm y x, family(binomial) link(logit)
+
+Iteration 0:  Log likelihood = -204.68847  
+Iteration 1:  Log likelihood = -199.14263  
+Iteration 2:  Log likelihood = -199.08271  
+Iteration 3:  Log likelihood = -199.08267  
+Iteration 4:  Log likelihood = -199.08267  
+
+Generalized linear models                         Number of obs   =        520
+Optimization     : ML                             Residual df     =        518
+                                                  Scale parameter =          1
+Deviance         =   398.165349                   (1/df) Deviance =    .768659
+Pearson          =   523.673855                   (1/df) Pearson  =   1.010953
+
+Variance function: V(u) = u*(1-u)                 [Bernoulli]
+Link function    : g(u) = ln(u/(1-u))             [Logit]
+
+                                                  AIC             =   .7733949
+Log likelihood   = -199.0826745                   BIC             =  -2841.318
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   1.079217   .1459947     7.39   0.000     .7930731    1.365362
+       _cons |  -1.958451   .1511571   -12.96   0.000    -2.254714   -1.662189
+------------------------------------------------------------------------------
+
+. predict double pearson_bin, pearson
+
+. predict double deviance_bin, deviance
+
+. qresid rq_binary, uvar(v)
+
+. summarize pearson_bin deviance_bin rq_binary
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+ pearson_bin |        520    .0004949    1.004493  -1.537892   5.309003
+deviance_bin |        520   -.1584195    .8614133  -1.557858   2.597565
+   rq_binary |        520   -.0144243     .998369  -2.676805   2.900849
+
+. _manual_snippet_end

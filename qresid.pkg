@@ -1,0 +1,19 @@
+v 1.0.0
+d 'QRESID': Randomized quantile residuals for regression diagnostics in Stata
+d 
+d Implements randomized quantile residuals (Dunn-Smyth residuals) for
+d regression diagnostics in supported independent regression models in Stata.
+d Intended for generalized linear and related models where conventional
+d residuals may be difficult to interpret.
+d Requires Stata 15.0 or newer.
+d 
+d Author: Percy Soto-Becerra, MD, MSc, PhD(c)
+d Affiliation: Universidad Privada del Norte, Lima, Peru
+d Email: percy.soto@upn.edu.pe
+d Email: percys1991@gmail.com
+d Repository: https://github.com/psotob91/qresid
+d Distribution-Date:   20260511
+d License: MIT
+d 
+F qresid.ado
+f qresid.sthlp

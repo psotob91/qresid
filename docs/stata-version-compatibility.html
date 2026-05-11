@@ -1,0 +1,42 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>qresid Stata version compatibility</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; line-height: 1.45; color: #1f2933; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #cbd5e1; padding: 0.45rem 0.55rem; vertical-align: top; }
+    th { background: #eef2f7; text-align: left; }
+    .ok { color: #166534; font-weight: 700; }
+    .fail { color: #991b1b; font-weight: 700; }
+    .skip { color: #854d0e; font-weight: 700; }
+    code { font-size: 0.9em; }
+  </style>
+</head>
+<body>
+  <h1>qresid Stata version compatibility</h1>
+  <p>This report checks parser/version-mode compatibility using the installed Stata executable. It is not a substitute for running a historical Stata binary.</p>
+  <p><strong>Generated:</strong> 2026-05-11 14:13:06 +09:00</p>
+  <p><strong>Minimum version mode recommended by this run:</strong> 15.0</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Version mode</th>
+        <th>Block</th>
+        <th>varabbrev</th>
+        <th>Status</th>
+        <th>Log</th>
+        <th>Observation</th>
+        <th>Minimum recommended</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>15.0</td><td>Unit tests</td><td>off</td><td class="ok">OK</td><td><code>compatibility\logs\15.0\unit_tests.log</code></td><td>Expected status found</td><td>15.0</td></tr>
+      <tr><td>15.0</td><td>Hardening smoke local install and examples</td><td>off</td><td class="ok">OK</td><td><code>compatibility\logs\15.0\hardening_smoke_local_install_and_examples.log</code></td><td>Expected status found</td><td>15.0</td></tr>
+      <tr><td>15.0</td><td>Public examples</td><td>off</td><td class="ok">OK</td><td><code>compatibility\logs\15.0\public_examples.log</code></td><td>Expected status found</td><td>15.0</td></tr>
+      <tr><td>15.0</td><td>R support consistency</td><td>not applicable</td><td class="ok">OK</td><td><code>compatibility\logs\15.0\r_support_consistency.log</code></td><td>R checker passed</td><td>15.0</td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

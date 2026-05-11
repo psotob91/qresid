@@ -1,0 +1,68 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/hurdle_output
+> .txt
+  log type:  text
+ opened on:  11 May 2026, 05:07:05
+.     zip y x, inflate(x)
+
+Fitting constant-only model:
+
+Iteration 0:  Log likelihood = -396.74954  
+Iteration 1:  Log likelihood = -358.05461  
+Iteration 2:  Log likelihood = -355.55538  
+Iteration 3:  Log likelihood =  -355.4587  
+Iteration 4:  Log likelihood = -355.45853  
+Iteration 5:  Log likelihood = -355.45853  
+
+Fitting full model:
+
+Iteration 0:  Log likelihood = -355.45853  
+Iteration 1:  Log likelihood = -353.03464  
+Iteration 2:  Log likelihood =  -352.9895  
+Iteration 3:  Log likelihood = -352.98948  
+
+Zero-inflated Poisson regression                        Number of obs =    260
+Inflation model: logit                                  Nonzero obs   =    141
+                                                        Zero obs      =    119
+                                                        LR chi2(1)    =   4.94
+Log likelihood = -352.9895                              Prob > chi2   = 0.0263
+
+------------------------------------------------------------------------------
+           y | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+y            |
+           x |   .1646907   .0728412     2.26   0.024     .0219246    .3074568
+       _cons |   .3603531   .0795409     4.53   0.000     .2044559    .5162503
+-------------+----------------------------------------------------------------
+inflate      |
+           x |   .9633544   .2647512     3.64   0.000     .4444517    1.482257
+       _cons |  -1.154153   .3044868    -3.79   0.000    -1.750936   -.5573696
+------------------------------------------------------------------------------
+.     qresid rq_zip_compare, uvar(v)
+.     hplogit y x, nolog
+
+Poisson-Logit Hurdle Regression                         Number of obs =    260
+                                                        Wald chi2(1)  =  12.35
+Log likelihood = -351.97218                             Prob > chi2   = 0.0004
+
+------------------------------------------------------------------------------
+             | Coefficient  Std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+logit        |
+           x |   .4572819   .1301182     3.51   0.000      .202255    .7123088
+       _cons |  -.2114764   .1285168    -1.65   0.100    -.4633647    .0404119
+-------------+----------------------------------------------------------------
+poisson      |
+           x |   .2262976    .085903     2.63   0.008     .0579308    .3946644
+       _cons |   .3290422   .0850726     3.87   0.000     .1623029    .4957814
+------------------------------------------------------------------------------
+AIC Statistic =     2.723
+.     qresid rq_hplogit, uvar(v)
+.     summarize rq_zip_compare rq_hplogit
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+rq_zip_com~e |        260   -.0106013    1.027394  -2.801522   3.137138
+  rq_hplogit |        260    -.012184    1.038331  -2.789589   3.220195
+.     _manual_snippet_end

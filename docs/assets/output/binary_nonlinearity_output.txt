@@ -1,0 +1,91 @@
+-------------------------------------------------------------------------------
+      name:  manual_snippet
+       log:  C:\qresid-research-program\qresid\docs/assets/output/binary_nonlin
+> earity_output.txt
+  log type:  text
+ opened on:  11 May 2026, 05:06:18
+
+. glm y x, family(binomial) link(logit)
+
+Iteration 0:  Log likelihood =   -570.313  
+Iteration 1:  Log likelihood =   -569.677  
+Iteration 2:  Log likelihood = -569.67684  
+Iteration 3:  Log likelihood = -569.67684  
+
+Generalized linear models                         Number of obs   =        850
+Optimization     : ML                             Residual df     =        848
+                                                  Scale parameter =          1
+Deviance         =  1139.353678                   (1/df) Deviance =   1.343577
+Pearson          =  853.6178478                   (1/df) Pearson  =   1.006625
+
+Variance function: V(u) = u*(1-u)                 [Bernoulli]
+Link function    : g(u) = ln(u/(1-u))             [Logit]
+
+                                                  AIC             =   1.345122
+Log likelihood   = -569.6768391                   BIC             =  -4580.607
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .1373979   .0490043     2.80   0.005     .0413513    .2334445
+       _cons |  -.4015465   .0705468    -5.69   0.000    -.5398157   -.2632774
+------------------------------------------------------------------------------
+
+. predict double pearson_lin, pearson
+
+. predict double deviance_lin, deviance
+
+. qresid rq_logit_linear, uvar(v)
+
+. glm y x x2, family(binomial) link(logit)
+
+Iteration 0:  Log likelihood = -395.35739  
+Iteration 1:  Log likelihood = -394.00708  
+Iteration 2:  Log likelihood = -394.00481  
+Iteration 3:  Log likelihood = -394.00481  
+
+Generalized linear models                         Number of obs   =        850
+Optimization     : ML                             Residual df     =        847
+                                                  Scale parameter =          1
+Deviance         =  788.0096138                   (1/df) Deviance =   .9303537
+Pearson          =  873.6319966                   (1/df) Pearson  =   1.031443
+
+Variance function: V(u) = u*(1-u)                 [Bernoulli]
+Link function    : g(u) = ln(u/(1-u))             [Logit]
+
+                                                  AIC             =    .934129
+Log likelihood   = -394.0048069                   BIC             =  -4925.206
+
+------------------------------------------------------------------------------
+             |                 OIM
+           y | Coefficient  std. err.      z    P>|z|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+           x |   .0417048   .0612945     0.68   0.496    -.0784303    .1618398
+          x2 |   .8875943   .0595483    14.91   0.000     .7708819    1.004307
+       _cons |  -2.308295   .1545514   -14.94   0.000     -2.61121    -2.00538
+------------------------------------------------------------------------------
+
+. qresid rq_logit_quadratic, uvar(v)
+
+. estat ic
+
+Akaike's information criterion and Bayesian information criterion
+
+-----------------------------------------------------------------------------
+       Model |          N   ll(null)  ll(model)      df        AIC        BIC
+-------------+---------------------------------------------------------------
+           . |        850          .  -394.0048       3   794.0096   808.2453
+-----------------------------------------------------------------------------
+Note: BIC uses N = number of observations. See [R] IC note.
+
+. summarize pearson_lin deviance_lin rq_logit_linear rq_logit_quadratic
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+ pearson_lin |        850    .0026233    1.002712  -.9702034   1.450209
+deviance_lin |        850   -.0609448    1.156839  -1.151829   1.504928
+rq_logit_l~r |        850   -.0210673    1.014932  -2.748924   2.574729
+rq_logit_q~c |        850   -.0340574    1.015205  -2.825498   2.679551
+
+. _manual_snippet_end
